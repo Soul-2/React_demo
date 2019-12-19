@@ -59,8 +59,7 @@ import {
           如果找不到页面 则去 4040页面 */}
         </Switch>
        <footer>尾部</footer>
-    </div>
-            
+    </div>    
      );
    }
  }

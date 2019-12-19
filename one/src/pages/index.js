@@ -12,7 +12,14 @@ const Cart = Loadable({
   loader: () => import('./cart'),
   loading: Loading,
 });
-
+const Login = Loadable({ 
+  loader: () => import('./login'),
+  loading: Loading,
+});
+const Home = Loadable({ 
+  loader: () => import('./home'),
+  loading: Loading,
+});
 export {
- Dog, Cart
+ Dog, Cart,Login,Home
 }//将页面导出

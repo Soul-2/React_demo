@@ -1,39 +1,63 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import Home from '../home/index'
+
+import { Table, Divider, Tag } from 'antd';
+
+const columns = [
+    {
+        title: 'id',
+        dataIndex: 'id',
+        key: 'id',
+        render: text => <a>{text}</a>,
+    },
+    {
+        title: 'Age',
+        dataIndex: 'age',
+        key: 'age',
+    },
+    {
+        title: 'name',
+        dataIndex: 'name',
+        key: 'name',
+    }
+];
+
+
 
 export default class Cart extends Component {
-    constructor(props){
+
+    constructor(props) {
         super(props);
         this.state = {
             list: []
         }
     }
+    componentDidMount() {
+        this.getData()
+    }
     getData = () => {
         axios.get('./info.json')
-        .then((response) => {
-            console.log(response)
-            this.setState({
-                list: response.data
+            .then((response) => {
+                console.log(response)
+                this.setState({
+                    list: response.data
+                })
             })
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .catch(function (error) {
+                console.log(error);
+            });
     }
-    render(){
+
+    render() {
+
         return (
-            <div>
-                <button onClick={this.getData}>获取axios数据</button>
-                {
-                    this.state.list.map((item,key) => {
-                        return (
-                            <li key={key}>
-                    {item.id},{item.name},{item.age}
-                            </li>
-                        )
-                    })
-                }
-            </div>
+            <Home>
+                <div>猫</div>
+              
+                <Table columns={columns} dataSource={this.state.list} />
+            </Home>
+
         )
     }
 }
