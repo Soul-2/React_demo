@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    table{
+        width: 800px;
+        border: 2px solid gray;
+        margin: 0 auto;
+        position: absolute;
+        
+    }
+    td{
+        width: 100px;
+        height: 30px;
+        border: 1px solid gray;
+        
+
+    }
+    button{
+        width: 100px;
+        height: 50px;
+        margin: 20px;
+    }
+    .show{
+        position:absolute;
+        background:rgba(170, 169, 169,0.2);
+    }
+    </style>
+    <script src="./jquery.min.js"></script>
+</head>
+<body>
+    <button id="purple" style="background: blueviolet;"></button>
+    <button id="blue" style="background-color: rgb(87, 243, 243);"></button>
+    <button id="yellow" style="background-color: rgb(231, 185, 35);"></button>
+    <table cellspacing="20" border="2" cellpadding="0">
+       <tr>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+       </tr>
+       <tr>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+       </tr>
+       <tr>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+       </tr>
+       <tr>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+           <td></td>
+       </tr>
+    </table>
+</body>
+<script >
+    var x=0,y=0,x1=0,x2=0
+    var color=''
+$('table').mousedown((e)=>{
+    console.log(e)
+   console.log(e.offsetX,e.offsetY)
+   x=e.offsetX;
+   y=e.offsetY
+   $('table').mouseover((e)=>{
+    console.log(e)
+   console.log(e.offsetX,e.offsetY)
+   x1=e.offsetX;
+   y1=e.offsetY
+   console.log(Array.from($('td')))
+
+$('table').append(`<div class="show" style="width:${x1-x}px;height:${y1-y}px;left:${x}px;top:${y}px;"></div>`)
+Array.from($('td')).forEach((item)=>{
+    if(item.offsetTop<=y1&&item.offsetLeft<=x1){
+        item.style.backgroundColor=`${color}`
+    }
+})
+})
+$('table').mouseleave((e)=>{
+    $('.show').remove()
+})
+})
+
+// console.log(x,y)
+
+$('#purple').click(()=>{
+   color='blueviolet'
+})
+$('#blue').click(()=>{
+   color='rgb(87, 243, 243)'
+})
+$('#yellow').click(()=>{
+   color='rgb(231, 185, 35)'
+})
+</script>
+</html>
