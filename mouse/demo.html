@@ -6,25 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
+    #main{
+        margin-left:20%;}
     table{
         width: 800px;
-        border: 2px solid gray;
-        margin: 0 auto;
+        border: 2px solid black;
         position: absolute;
-        
+        left: 20%;
+        top: 20%;
+        padding: 30px;
     }
     td{
         width: 100px;
         height: 30px;
-        border: 1px solid gray;
-        
+        border: 2px solid black;
+        text-align: center;
+        font-size: 20px;
 
     }
-    button{
+   span{
         width: 100px;
-        height: 50px;
+        height: 30px;
         margin: 20px;
-        border-radius: 20px;
+        border: 2px solid black;
+        display: block;
+        float: left;
+    }
+span:hover
+    {
+/* background-color: rgb(31, 82, 141); */
+cursor: pointer;
     }
     .show{
         position:absolute;
@@ -36,25 +47,28 @@
     <script src="./jquery.min.js"></script>
 </head>
 <body>
-    <button id="purple" style="background: rgb(163, 118, 206);"></button>
-    <button id="blue" style="background-color: rgb(50, 130, 184);"></button>
-    <button id="yellow" style="background-color: rgb(231, 123, 35);"></button>
-    <table cellspacing="20" border="2" cellpadding="0">
+    <div id="main"> <p>鼠标可以点击上方的按钮，能够将鼠标选中的区域改变成按钮的颜色(并且能够获取到里面的值)</p>
+        <span id="purple" style="background: #FFCCCC;"></span>
+        <span id="blue" style="background-color: #FFE6CC;"></span>
+        <span id="yellow" style="background-color: #E6FFCC;"></span>
+</div>
+   
+    <table cellspacing="20" border="2" cellpadding="0"  onselectstart="return false">
        <tr>
-           <td></td>
-           <td></td>
-           <td></td>
-           <td></td>
-           <td></td>
-           <td></td>
+           <td>1</td>
+           <td>2</td>
+           <td>3</td>
+           <td>4</td>
+           <td>5</td>
+           <td>6</td>
        </tr>
        <tr>
-           <td></td>
-           <td></td>
-           <td></td>
-           <td></td>
-           <td></td>
-           <td></td>
+           <td>7</td>
+           <td>8</td>
+           <td>9</td>
+           <td>10</td>
+           <td>11</td>
+           <td>12</td>
        </tr>
        <tr>
            <td></td>
@@ -73,10 +87,14 @@
            <td></td>
        </tr>
     </table>
+    <div>
+        <h5 id="check">选中获取到的内容:</h5>
+    </div>
 </body>
 <script >
     var x=0,y=0,x1=0,x2=0
     var color=''
+    var arr=[]
 $('table').mousedown((e)=>{
     console.log(e)
    console.log(e.offsetX,e.offsetY)
@@ -85,21 +103,16 @@ $('table').mousedown((e)=>{
     move()
     console.log(e)
    console.log(e.offsetX,e.offsetY)
-
-
 })
-
-
-// console.log(x,y)
-
+// console.log(x,y
 $('#purple').click(()=>{
-   color='rgb(163, 118, 206)'
+   color='#FFCCCC'
 })
 $('#blue').click(()=>{
-   color='rgb(50, 130, 184)'
+   color='#FFE6CC'
 })
 $('#yellow').click(()=>{
-   color='rgb(231, 123, 35)'
+   color='#E6FFCC'
 })
 
 $('table').mouseup((e)=>{
@@ -108,15 +121,23 @@ $('table').mouseup((e)=>{
 Array.from($('td')).forEach((item)=>{
     if(item.offsetTop<=y1&&item.offsetLeft<=x1&&item.offsetTop>=y&&item.offsetLeft>=x){
         item.style.backgroundColor=`${color}`
+        item.style.color=`#A88C3E`
+        console.log(item.innerText)
+        // alert(item.innerText())
+    //    arr.push(item.innerText)
+    $('#check').append('  '+item.innerText)
+
     }
+   
 })
 
 
 $('.show').remove()
 $('table').unbind('mousemove')
+// alert(arr)
 })
 function move(){
-
+    $('table').css('cursor','pointer')
         $('table').bind('mousemove',(e)=>{
         x1=e.offsetX;
    y1=e.offsetY

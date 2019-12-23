@@ -20,6 +20,10 @@ const Home = Loadable({
   loader: () => import('./home'),
   loading: Loading,
 });
+const Welcome= Loadable({ 
+  loader: () => import('./welcome'),
+  loading: Loading,
+});
 export {
- Dog, Cart,Login,Home
+ Dog, Cart,Login,Home,Welcome
 }//将页面导出

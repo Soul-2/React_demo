@@ -1,5 +1,5 @@
 import {
-   Cart,Dog,Login,Home
+   Cart,Dog,Login,Home,Welcome
   } from '../pages' //导入页面
 
   
@@ -14,6 +14,7 @@ import {
               <Route exact path="/home" component={Home}/>
               <Route  path="/cart" component={Cart}/>
               <Route  path="/dog" component={Dog}/>
+              <Route  path="/welcome" component={Welcome}/>
           </Switch>
           <Route exact path="/" component={Login}/>
 

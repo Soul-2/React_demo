@@ -49,7 +49,7 @@ Axios.get('http://127.0.0.1:8888/login').then((res)=>{
   console.log(res.data)
   if(res.data.username==this.state.name&&res.data.password==this.state.pwd){
     message.success('登陆成功！');
-    this.props.history.push('/home')
+    this.props.history.push('/welcome')
   }
     else{
       message.error('登陆失败！');
