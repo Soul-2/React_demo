@@ -37,7 +37,7 @@ router.all('*',function (req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With');
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
     if (req.method == 'OPTIONS') {
-      res.send(200);
+      res.sendStatus(200);
     }
     else {
       next();
@@ -61,5 +61,36 @@ router.get('/login',(req,res)=>{
 }).get('/register',(req,res)=>{
     res.send('这是注册页面');
 });
+var multer=require('multer');
+//生成的图片放入uploads文件夹下
+var upload=multer({dest:'uploads/'})
+router.post('/img',upload.single('test'),(req,res)=>{
+    //读取文件路径
+    console.log(req.file,'+++++++++++++++++')
+    fs.readFile(req.file.path,(err,data)=>{
+        //如果读取失败
+    if(err){return res.send('上传失败')}
+  
+    //如果读取成功
+    //声明图片名字为时间戳和随机数拼接成的，尽量确保唯一性
+    let time=Date.now()+parseInt(Math.random()*999)+parseInt(Math.random()*2222);
+    //拓展名
+    let extname=req.file.mimetype.split('/')[1]
+    //拼接成图片名
+    let keepname=time+'.'+extname
+    //三个参数
+    //1.图片的绝对路径
+    //2.写入的内容
+    //3.回调函数
+    // fs.writeFile(path.join(__dirname,'../../static/img/'+keepname),data,(err)=>{
+    //     if(err){return res.send('写入失败')}
+    //     res.send({err:0,msg:'上传ok'})
+    // });
+    fs.writeFile(path.join(__dirname,'/imgs/'+req.file.originalname),data,(err)=>{
+        if(err){return res.send('写入失败')}
+        res.send({code:200,msg:"图片上传成功！"})
+    })
+ });
+})
 server.use(router);
 
