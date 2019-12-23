@@ -27,15 +27,17 @@
     }
     .show{
         position:absolute;
-        background:rgba(170, 169, 169,0.2);
+        background:rgba(226, 224, 224, 0.5);
+    
     }
+   
     </style>
     <script src="./jquery.min.js"></script>
 </head>
 <body>
-    <button id="purple" style="background: blueviolet;"></button>
-    <button id="blue" style="background-color: rgb(87, 243, 243);"></button>
-    <button id="yellow" style="background-color: rgb(231, 185, 35);"></button>
+    <button id="purple" style="background: rgb(163, 118, 206);"></button>
+    <button id="blue" style="background-color: rgb(50, 130, 184);"></button>
+    <button id="yellow" style="background-color: rgb(231, 123, 35);"></button>
     <table cellspacing="20" border="2" cellpadding="0">
        <tr>
            <td></td>
@@ -79,35 +81,48 @@ $('table').mousedown((e)=>{
    console.log(e.offsetX,e.offsetY)
    x=e.offsetX;
    y=e.offsetY
-   $('table').mouseover((e)=>{
+    move()
     console.log(e)
    console.log(e.offsetX,e.offsetY)
-   x1=e.offsetX;
-   y1=e.offsetY
-   console.log(Array.from($('td')))
 
-$('table').append(`<div class="show" style="width:${x1-x}px;height:${y1-y}px;left:${x}px;top:${y}px;"></div>`)
-Array.from($('td')).forEach((item)=>{
-    if(item.offsetTop<=y1&&item.offsetLeft<=x1){
-        item.style.backgroundColor=`${color}`
-    }
+
 })
-})
-$('table').mouseleave((e)=>{
-    $('.show').remove()
-})
-})
+
 
 // console.log(x,y)
 
 $('#purple').click(()=>{
-   color='blueviolet'
+   color='rgb(163, 118, 206)'
 })
 $('#blue').click(()=>{
-   color='rgb(87, 243, 243)'
+   color='rgb(50, 130, 184)'
 })
 $('#yellow').click(()=>{
-   color='rgb(231, 185, 35)'
+   color='rgb(231, 123, 35)'
 })
+
+$('table').mouseup((e)=>{
+   console.log(Array.from($('td')))
+    $('table').append(`<div class="show" style="width:${x1-x}px;height:${y1-y}px;left:${x}px;top:${y}px;"></div>`)
+Array.from($('td')).forEach((item)=>{
+    if(item.offsetTop<=y1&&item.offsetLeft<=x1&&item.offsetTop>=y&&item.offsetLeft>=x){
+        item.style.backgroundColor=`${color}`
+    }
+})
+
+
+$('.show').remove()
+$('table').unbind('mousemove')
+})
+function move(){
+
+        $('table').bind('mousemove',(e)=>{
+        x1=e.offsetX;
+   y1=e.offsetY
+    $('table').append(`<div class="show" style="width:${x1-x}px;height:${y1-y}px;left:${x}px;top:${y}px;"></div>`)
+    $('table').children('.show:last').css('display','block').siblings('.show').css('display','none')
+    })
+
+}
 </script>
 </html>
