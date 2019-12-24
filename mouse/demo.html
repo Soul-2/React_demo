@@ -96,10 +96,16 @@ cursor: pointer;
     var color=''
     var arr=[]
 $('table').mousedown((e)=>{
+    // e.stopPropagation()
+    x=e.offsetX;
+   y=e.offsetY
+    if(e.target.localName=='td'){
+            x=e.target.offsetLeft+x
+   y=e.target.offsetTop+y
+        }
     console.log(e)
    console.log(e.offsetX,e.offsetY)
-   x=e.offsetX;
-   y=e.offsetY
+ 
     move()
     console.log(e)
    console.log(e.offsetX,e.offsetY)
@@ -139,11 +145,20 @@ $('table').unbind('mousemove')
 function move(){
     $('table').css('cursor','pointer')
         $('table').bind('mousemove',(e)=>{
+            // e.preventDefault();
+        console.log(e)
         x1=e.offsetX;
    y1=e.offsetY
+        if(e.target.localName=='td'){
+            x1=e.target.offsetLeft+x1
+   y1=e.target.offsetTop+y1
+        }
+       
+//    console.log(x1,y1)
     $('table').append(`<div class="show" style="width:${x1-x}px;height:${y1-y}px;left:${x}px;top:${y}px;"></div>`)
     $('table').children('.show:last').css('display','block').siblings('.show').css('display','none')
     })
+    
 
 }
 </script>
